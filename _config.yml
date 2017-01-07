@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Airplake
 subtitle:
 description:
-author: John Doe
+author:
 language: zh-CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://airplake.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -46,6 +46,9 @@ highlight:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  前端开发: frontend
+  后端开发: backend
+  工具: tools
 tag_map:
 
 # Date / Time format
