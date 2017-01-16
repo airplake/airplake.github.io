@@ -25,9 +25,9 @@ customize:
     highlight: monokai
     sidebar: right # sidebar position, options: left, right
     thumbnail: false # enable posts thumbnail, options: true, false
-    favicon: # path to favicon
+    favicon: css/images/favicon.ico
     social_links:
-        github: https://github.com/airplake
+        github: https://github.com/airplakecss/images/avatar.png
         twitter: /
         facebook: /
         dribbble: /
@@ -74,4 +74,3 @@ miscellaneous:
         twitter_id:
         google_plus:
     links:
-        
