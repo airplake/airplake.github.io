@@ -2,7 +2,7 @@
 
 ## 分支说明
 
-* master 分支 `hexo deploy`
+* master 分支 页面展示分支 
 * source 分支 hexo 源码
 
 
@@ -40,8 +40,8 @@
 
 ### 发布
 
-    git g
-    git d
+    hexo g
+    hexo d
 
 >参考资料
 >[hexo](https://hexo.io/)
