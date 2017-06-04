@@ -40,6 +40,7 @@ widgets:
     - category
     - archive
     - tag
+    - author
     - tagcloud
     - links
 

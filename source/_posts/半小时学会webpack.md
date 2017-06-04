@@ -2,6 +2,7 @@
 title: 半小时学会webpack
 date: 2017-01-12 10:45:38
 categories: 工具
+author: 老魏
 tags:
   - webpack
   - 打包
