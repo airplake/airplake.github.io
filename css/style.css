@@ -1088,6 +1088,7 @@ a.article-title:hover {
     margin-top: -4px;
     margin-left: -4px;
     content: "";
+    visibility: hidden;
     border-radius: 50%;
     background: #787c81;
   }
@@ -1121,7 +1122,7 @@ a.article-title:hover {
 @media screen and (min-width: 1200px) {
   #article-nav-older {
     float: right;
-    text-align: left;
+    text-align: right;
     padding-left: 20px;
   }
 }
