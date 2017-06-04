@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Mongodb地理空间查询-最佳方案 | Airplake</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="MongoDB&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x57FA;&amp;#x4E8E;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6587;&amp;#x4EF6;&amp;#x5B58;&amp;#x50A8;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x3002;&amp;#x7531;C++&amp;#x8BED;&amp;#x8A00;&amp;#x7F16;&amp;#x5199;&amp;#x3002;&amp;#x65">
+<meta name="keywords" content="Mongodb,地理空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mongodb地理空间查询-最佳方案">
+<meta property="og:url" content="http://airplake.github.io/2017/06/04/Mongodb地理空间查询-最佳方案/index.html">
+<meta property="og:site_name" content="Airplake">
+<meta property="og:description" content="MongoDB&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x57FA;&amp;#x4E8E;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6587;&amp;#x4EF6;&amp;#x5B58;&amp;#x50A8;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x3002;&amp;#x7531;C++&amp;#x8BED;&amp;#x8A00;&amp;#x7F16;&amp;#x5199;&amp;#x3002;&amp;#x65">
+<meta property="og:updated_time" content="2017-06-04T05:40:06.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mongodb地理空间查询-最佳方案">
+<meta name="twitter:description" content="MongoDB&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x57FA;&amp;#x4E8E;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6587;&amp;#x4EF6;&amp;#x5B58;&amp;#x50A8;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x3002;&amp;#x7531;C++&amp;#x8BED;&amp;#x8A00;&amp;#x7F16;&amp;#x5199;&amp;#x3002;&amp;#x65">
+    
+
+    
+        <link rel="alternate" href="/" title="Airplake" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Airplake</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+                    <a class="main-nav-link" href="https://github.com/airplake">GitHub</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                    <td><a class="main-nav-link" href="https://github.com/airplake">GitHub</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Airplake</h2>
+            <h3 id="title"></h3>
+            <span id="location"></span>
+            <a id="follow" target="_blank" href="https://github.com/airplake">关注我们</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                5
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                9
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/airplakecss/images/avatar.png" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-Mongodb地理空间查询-最佳方案" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Mongodb地理空间查询-最佳方案
+        </h1>
+    
+
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/06/04/Mongodb地理空间查询-最佳方案/">
+            <time datetime="2017-06-04T04:45:38.000Z" itemprop="datePublished">2017-06-04</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/backend/">后端开发</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Mongodb/">Mongodb</a>, <a class="tag-link" href="/tags/地理空间/">地理空间</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>MongoDB<br>&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;&#x5206;&#x5E03;&#x5F0F;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x7684;&#x6570;&#x636E;&#x5E93;&#x3002;&#x7531;<a href="http://baike.baidu.com/view/824.htm" target="_blank" rel="external">C++</a>&#x8BED;&#x8A00;&#x7F16;&#x5199;&#x3002;&#x65E8;&#x5728;&#x4E3A;WEB&#x5E94;&#x7528;&#x63D0;&#x4F9B;&#x53EF;&#x6269;&#x5C55;&#x7684;&#x9AD8;&#x6027;&#x80FD;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x3002;</p>
+</blockquote>
+<p>##&#x524D;&#x8A00;<br>&#x5728;&#x79FB;&#x52A8;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x7ECF;&#x5E38;&#x4F1A;&#x7528;&#x5230;&#x5B9A;&#x4F4D;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x4F8B;&#x5982;&#x7F8E;&#x56E2;&#x3001;&#x997F;&#x4E86;&#x4E48;&#x3001;&#x732B;&#x773C;&#x7535;&#x5F71;&#x7B49;&#x5E94;&#x7528;&#xFF0C;&#x90FD;&#x4F7F;&#x7528;&#x4E86;&#x5B9A;&#x4F4D;&#x7ECF;&#x7EAC;&#x5EA6;&#xFF0C;&#x53EF;&#x4EE5;&#x67E5;&#x8BE2;&#x7528;&#x6237;&#x4F4D;&#x7F6E;&#x9644;&#x8FD1;&#x7684;&#x4E00;&#x4E9B;&#x670D;&#x52A1;&#x3001;&#x5546;&#x5BB6;&#x7B49;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x5C06;&#x4F1A;&#x8BB2;&#x8FF0;&#x5982;&#x4F55;&#x5229;&#x7528;Mongodb&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x3001;&#x5B9A;&#x4F4D;&#x67E5;&#x8BE2;&#x3002;</p>
+<p>&#x672C;&#x65B9;&#x6848;&#x4E3A;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#xFF0C;&#x5B9E;&#x73B0;&#x529F;&#x80FD;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x5E26;&#x7ECF;&#x7EAC;&#x5EA6;&#x6570;&#x636E;&#x7684;&#x5B58;&#x50A8;</li>
+<li>&#x6839;&#x636E;&#x7528;&#x6237;&#x7ECF;&#x7EAC;&#x5EA6;&#xFF0C;&#x67E5;&#x8BE2;&#x7531;&#x8FD1;&#x5230;&#x8FDC;&#x7684;&#x6570;&#x636E;&#xFF08;&#x5206;&#x9875;&#xFF09;</li>
+<li>&#x9644;&#x5E26;&#x8DDD;&#x79BB;&#x6570;&#x503C;&#xFF08;&#x6570;&#x636E;&#x5E93;&#x5C42;&#x7EA7;&#x7684;&#x8BA1;&#x7B97;&#xFF09;</li>
+<li>&#x53EF;&#x8BBE;&#x7F6E;&#x6700;&#x5927;&#x8DDD;&#x79BB;</li>
+</ul>
+<p>&#x4E00;&#x53E5;&#x8BDD;&#x5F62;&#x5BB9;&#x5C31;&#x662F; &#xFF1A; &#x5B58;&#x50A8;&#x5E26;&#x7ECF;&#x7EAC;&#x5EA6;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E14;&#x6839;&#x636E;&#x7528;&#x6237;&#x7684;&#x4E0D;&#x540C;&#x4F4D;&#x7F6E;&#xFF0C;&#x8FD4;&#x56DE;&#x53EF;&#x5206;&#x7EC4;&#x3001;&#x5E26;&#x8DDD;&#x79BB;&#x7684;&#x6570;&#x636E;&#x5217;&#x8868;</p>
+<a id="more"></a>
+<p>&#x6CE8;&#x610F;&#xFF0C;Mongodb&#x7248;&#x672C;&#x5728;2.4&#x4EE5;&#x4E0A;</p>
+<p>##&#x5206;&#x6790;<br>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#xFF0C;&#x7BA1;&#x7406;&#x5458;&#x53EF;&#x4EE5;&#x628A;&#x5546;&#x5BB6;&#x4FE1;&#x606F;&#x53D1;&#x5E03;&#x5230;&#x5E94;&#x7528;&#x4E0A;&#xFF0C;&#x7528;&#x6237;&#x6253;&#x5F00;&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8DDD;&#x79BB;&#x81EA;&#x5DF1;&#x7531;&#x8FD1;&#x5230;&#x8FDC;&#x7684;&#x5546;&#x54C1;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8DDD;&#x79BB;&#x591A;&#x5C11;&#x3002;</p>
+<p>Mongodb&#x6709;&#x4E00;&#x79CD;&#x7D22;&#x5F15;&#x2013;&#x5730;&#x7406;&#x7A7A;&#x95F4;&#x7D22;&#x5F15;&#xFF0C;&#x5229;&#x7528;&#x5B83;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x7ECF;&#x7EAC;&#x5EA6;&#x7684;&#x8BA1;&#x7B97;&#xFF0C;&#x4E0B;&#x9762;&#x7EE7;&#x7EED;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x8BE5;&#x529F;&#x80FD;&#x3002;</p>
+<p>##&#x5B9E;&#x73B0;<br>&#x4E0B;&#x9762;&#x4EE5;Nodejs+mongoose&#x4E3A;&#x4F8B;</p>
+<ol>
+<li><p>&#x521B;&#x5EFA;Schema&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const mongoose = require( &apos;mongoose&apos; );</div><div class="line">let VenuesSchema = new mongoose.Schema( {</div><div class="line">    name: String,</div><div class="line">    address: String,</div><div class="line">    location: {</div><div class="line">        type: [ Number ],</div><div class="line">        index: {</div><div class="line">            type: &apos;2dsphere&apos;,</div><div class="line">            sparse: true</div><div class="line">        }</div><div class="line">    }</div><div class="line">}, {</div><div class="line">    collection: &apos;Venues&apos;</div><div class="line">} )</div></pre></td></tr></table></figure>
+</li>
+<li><p>&#x521B;&#x5EFA;Model</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let VenuesModel = mongoose.model(&#x2018;Venues&#x2019;, VenuesSchema)</div></pre></td></tr></table></figure>
+</li>
+<li><p>&#x63D2;&#x5165;&#x6570;&#x636E;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#x6309;&#x7167;&#x4EE5;&#x4E0B;&#x6570;&#x636E;&#x683C;&#x5F0F;&#x5F80;&#x6570;&#x636E;&#x5E93;&#x63D2;&#x5165;&#x6570;&#x636E;&#xFF1A;</div><div class="line">{</div><div class="line">    &quot;name&quot;: &quot;&#x97F3;&#x4E50;&#x6D3E;KTV(&#x94F6;&#x6CF0;&#x57CE;)&quot;,</div><div class="line">    &quot;address&quot;: &quot;&#x6B66;&#x4FAF;&#x533A;&#x9AD8;&#x65B0;&#x533A;&#x5929;&#x5E9C;&#x56DB;&#x8857;&#x76CA;&#x5DDE;&#x5927;&#x9053;&#x53E3;&#x94F6;&#x6CF0;&#x57CE;4F&quot;</div><div class="line">    &quot;location&quot; : [</div><div class="line">        104.05801,</div><div class="line">        30.5411</div><div class="line">    ],</div><div class="line">}</div></pre></td></tr></table></figure>
+</li>
+<li><p>&#x67E5;&#x770B;&#x7528;&#x6237;&#x9644;&#x8FD1;&#x7684;&#x6570;&#x636E;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"> let matchQuery = {</div><div class="line">   &#x201C;name&#x201D; : /&#x97F3;&#x4E50;/ig</div><div class="line"> }   // &#x989D;&#x5916;&#x7B5B;&#x9009;,&#x6B64;&#x5904;&#x67E5;&#x8BE2;&#x540D;&#x5B57;&#x5305;&#x542B;&#x97F3;&#x4E50;&#x7684;&#x6570;&#x636E;</div><div class="line"> let venuesCount = await VenuesModel.count().exec()</div><div class="line"></div><div class="line"> VenuesModel.aggregate( [</div><div class="line">   {</div><div class="line">     $geoNear: {</div><div class="line">        near: { type: &apos;Point&apos;, coordinates: [</div><div class="line">           104.05801 ,  //&#x7528;&#x6237;&#x7ECF;&#x5EA6;</div><div class="line">           30.5411   //&#x7528;&#x6237;&#x7EAC;&#x5EA6;</div><div class="line">        ] },</div><div class="line">        distanceField: &apos;distance&apos;,  // &#x8DDD;&#x79BB;&#x6570;&#x503C;&#x5B57;&#x6BB5;&#x540D;</div><div class="line">        spherical: true,</div><div class="line">        maxDistance: 1000    // (Int&#x7C7B;&#x578B;&#x7684;&#x6700;&#x5927;&#x8DDD;&#x79BB;--&#x7C73;&#xFF0C;&#x4F8B;&#x5982;500&#xFF0C;1000),        </div><div class="line">        query: matchQuery,</div><div class="line">        limit: venuesCount</div><div class="line">     }</div><div class="line">   },</div><div class="line">   {</div><div class="line">     $match: matchQuery</div><div class="line">   },</div><div class="line">   {</div><div class="line">     $count: &apos;venuesCount&apos;</div><div class="line">   },  //&#x6B64;&#x5904;&#x6DFB;&#x52A0;&#x4E86;&#x6B64;&#x5904;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x6570;&#x636E;&#x91CF;&#xFF0C;&#x5982;&#x9700;&#x8FD4;&#x56DE;&#x5177;&#x4F53;&#x6570;&#x636E;&#x5217;&#x8868;&#xFF0C;&#x5220;&#x9664;&#x6B64;&#x5904;</div><div class="line">   {</div><div class="line">     $skip: 30  </div><div class="line">   }, // &#x5206;&#x9875;&#xFF0C;&#x8DF3;&#x8FC7;&#x6570;&#x636E;&#x6570;&#x91CF;</div><div class="line">   {</div><div class="line">     $limit: 30</div><div class="line">   } // &#x5206;&#x9875;&#xFF0C;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x6570;&#x91CF;</div><div class="line">] )</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>##&#x603B;&#x7ED3;<br>&#x672C;&#x6B21;&#x4E3B;&#x8981;&#x5206;&#x4EAB;&#x4F4D;&#x7F6E;&#x7D22;&#x5F15;&#x548C;aggregate&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x5341;&#x5206;&#x5B9E;&#x7528;&#x7684;&#x4E00;&#x4E2A;&#x529F;&#x80FD;&#x3002;</p>
+<ul>
+<li>&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x9ED8;&#x8BA4;&#x5C31;&#x662F;&#x8FD1;&#x5230;&#x8FDC;&#x7684;&#x6570;&#x636E;</li>
+<li>&#x4E0D;&#x8981;&#x5FD8;&#x4E86;&#x6570;&#x636E;&#x5E93;&#x5B57;&#x6BB5;location&#x7684;&#x7D22;&#x5F15;&#x914D;&#x7F6E;</li>
+<li>&#x8DDD;&#x79BB;&#x4FE1;&#x606F;&#x4F1A;&#x9644;&#x5E26;&#x5728;&#x8FD4;&#x56DE;&#x7684;&#x4FE1;&#x606F;&#x5217;&#x8868;&#x4E2D;&#xFF0C;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;distance&#x5B57;&#x6BB5;&#xFF08;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#xFF09;</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="http://airplake.github.io/2017/06/04/Mongodb地理空间查询-最佳方案/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://airplake.github.io/2017/06/04/Mongodb地理空间查询-最佳方案/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/06/04/不得不学的AJAX/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">不得不学的AJAX</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/06/04/Mongodb地理空间查询-最佳方案/" data-title="Mongodb地理空间查询-最佳方案" data-url="http://airplake.github.io/2017/06/04/Mongodb地理空间查询-最佳方案/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">后端开发</a></p>
+                            <p class="item-title"><a href="/2017/06/04/Mongodb地理空间查询-最佳方案/" class="title">Mongodb地理空间查询-最佳方案</a></p>
+                            <p class="item-date"><time datetime="2017-06-04T04:45:38.000Z" itemprop="datePublished">2017-06-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">前端开发</a></p>
+                            <p class="item-title"><a href="/2017/06/04/不得不学的AJAX/" class="title">不得不学的AJAX</a></p>
+                            <p class="item-date"><time datetime="2017-06-04T02:45:38.000Z" itemprop="datePublished">2017-06-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
+                            <p class="item-title"><a href="/2017/03/20/团队代码规范之--standard/" class="title">团队代码规范之--standard</a></p>
+                            <p class="item-date"><time datetime="2017-03-20T12:45:38.000Z" itemprop="datePublished">2017-03-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
+                            <p class="item-title"><a href="/2017/01/12/半小时学会webpack/" class="title">半小时学会webpack</a></p>
+                            <p class="item-date"><time datetime="2017-01-12T02:45:38.000Z" itemprop="datePublished">2017-01-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
+                            <p class="item-title"><a href="/2017/01/07/cmder/" class="title">Windows命令行工具Cmder</a></p>
+                            <p class="item-date"><time datetime="2017-01-07T02:45:38.000Z" itemprop="datePublished">2017-01-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/frontend/">前端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/">后端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">工具</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/">AJAX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mongodb/">Mongodb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmder/">cmder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/standard/">standard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码规范/">代码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行/">命令行</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地理空间/">地理空间</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打包/">打包</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/Mongodb/" style="font-size: 10px;">Mongodb</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/standard/" style="font-size: 10px;">standard</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/代码规范/" style="font-size: 10px;">代码规范</a> <a href="/tags/命令行/" style="font-size: 10px;">命令行</a> <a href="/tags/地理空间/" style="font-size: 10px;">地理空间</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Airplake<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'airplake'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

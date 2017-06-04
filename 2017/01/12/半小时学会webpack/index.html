@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>半小时学会webpack | Airplake</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="&amp;#x534A;&amp;#x5C0F;&amp;#x65F6;&amp;#x5B66;&amp;#x4F1A;webpack&amp;#x5B66;&amp;#x4E60;webpack&amp;#xFF0C;&amp;#x53EA;&amp;#x9700;&amp;#x8981;&amp;#x8BB0;&amp;#x5F97;&amp;#x4E00;&amp;#x53E5;&amp;#x8BDD;&amp;#xFF0C;&amp;#x4E00;&amp;#x5207;&amp;#x7686;&amp;#x6A21;&amp;#x5757;  &amp;#x6700;">
+<meta name="keywords" content="webpack,打包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="半小时学会webpack">
+<meta property="og:url" content="http://airplake.github.io/2017/01/12/半小时学会webpack/index.html">
+<meta property="og:site_name" content="Airplake">
+<meta property="og:description" content="&amp;#x534A;&amp;#x5C0F;&amp;#x65F6;&amp;#x5B66;&amp;#x4F1A;webpack&amp;#x5B66;&amp;#x4E60;webpack&amp;#xFF0C;&amp;#x53EA;&amp;#x9700;&amp;#x8981;&amp;#x8BB0;&amp;#x5F97;&amp;#x4E00;&amp;#x53E5;&amp;#x8BDD;&amp;#xFF0C;&amp;#x4E00;&amp;#x5207;&amp;#x7686;&amp;#x6A21;&amp;#x5757;  &amp;#x6700;">
+<meta property="og:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/what-is-webpack.png">
+<meta property="og:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/webpack01.png">
+<meta property="og:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/webpack02.png">
+<meta property="og:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/react.png">
+<meta property="og:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/webpack03.png">
+<meta property="og:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/webpack04.png">
+<meta property="og:updated_time" content="2017-06-04T05:26:52.997Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="半小时学会webpack">
+<meta name="twitter:description" content="&amp;#x534A;&amp;#x5C0F;&amp;#x65F6;&amp;#x5B66;&amp;#x4F1A;webpack&amp;#x5B66;&amp;#x4E60;webpack&amp;#xFF0C;&amp;#x53EA;&amp;#x9700;&amp;#x8981;&amp;#x8BB0;&amp;#x5F97;&amp;#x4E00;&amp;#x53E5;&amp;#x8BDD;&amp;#xFF0C;&amp;#x4E00;&amp;#x5207;&amp;#x7686;&amp;#x6A21;&amp;#x5757;  &amp;#x6700;">
+<meta name="twitter:image" content="http://airplake.github.io/2017/01/12/半小时学会webpack/what-is-webpack.png">
+    
+
+    
+        <link rel="alternate" href="/" title="Airplake" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Airplake</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">首页</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+                    <a class="main-nav-link" href="https://github.com/airplake">GitHub</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                    <td><a class="main-nav-link" href="https://github.com/airplake">GitHub</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Airplake</h2>
+            <h3 id="title"></h3>
+            <span id="location"></span>
+            <a id="follow" target="_blank" href="https://github.com/airplake">关注我们</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                5
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                9
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/airplakecss/images/avatar.png" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-半小时学会webpack" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            半小时学会webpack
+        </h1>
+    
+
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/01/12/半小时学会webpack/">
+            <time datetime="2017-01-12T02:45:38.000Z" itemprop="datePublished">2017-01-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/tools/">工具</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/webpack/">webpack</a>, <a class="tag-link" href="/tags/打包/">打包</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack"><a href="#&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack" class="headerlink" title="&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack"></a>&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack</h1><p>&#x5B66;&#x4E60;webpack&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x8BB0;&#x5F97;&#x4E00;&#x53E5;&#x8BDD;&#xFF0C;<strong>&#x4E00;&#x5207;&#x7686;&#x6A21;&#x5757;</strong></p>
+<p><img src="/2017/01/12/&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack/what-is-webpack.png" alt=""></p>
+<p>&#x6700;&#x597D;&#x7684;&#x5B66;&#x4E60;&#x7F51;&#x7AD9;&#x2013;<a href="http://webpack.github.io/" target="_blank" rel="external">&#x5B98;&#x65B9;&#x7F51;&#x7AD9;</a>&#xFF0C;&#x6CA1;&#x6709;&#x4E4B;&#x4E00;&#x3002;</p>
+<h3 id="&#x4EC0;&#x4E48;&#x662F;webpack&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;&#x5B83;&#xFF1F;"><a href="#&#x4EC0;&#x4E48;&#x662F;webpack&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;&#x5B83;&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;webpack&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;&#x5B83;&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;webpack&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x4F7F;&#x7528;&#x5B83;&#xFF1F;</h3><p>Webpack &#x662F;&#x5F53;&#x4E0B;&#x6700;&#x70ED;&#x95E8;&#x7684;&#x524D;&#x7AEF;&#x8D44;&#x6E90;&#x6A21;&#x5757;&#x5316;&#x7BA1;&#x7406;&#x548C;&#x6253;&#x5305;&#x5DE5;&#x5177;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x5C06;&#x8BB8;&#x591A;&#x677E;&#x6563;&#x7684;&#x6A21;&#x5757;&#x6309;&#x7167;&#x4F9D;&#x8D56;&#x548C;&#x89C4;&#x5219;&#x6253;&#x5305;&#x6210;&#x7B26;&#x5408;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x90E8;&#x7F72;&#x7684;&#x524D;&#x7AEF;&#x8D44;&#x6E90;&#x3002;&#x8FD8;&#x53EF;&#x4EE5;&#x5C06;&#x6309;&#x9700;&#x52A0;&#x8F7D;&#x7684;&#x6A21;&#x5757;&#x8FDB;&#x884C;&#x4EE3;&#x7801;&#x5206;&#x9694;&#xFF0C;&#x7B49;&#x5230;&#x5B9E;&#x9645;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x518D;&#x5F02;&#x6B65;&#x52A0;&#x8F7D;&#x3002;&#x901A;&#x8FC7; <code>loader</code> &#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x4EFB;&#x4F55;&#x5F62;&#x5F0F;&#x7684;&#x8D44;&#x6E90;&#x90FD;&#x53EF;&#x4EE5;&#x89C6;&#x4F5C;&#x6A21;&#x5757;&#xFF0C;&#x6BD4;&#x5982; <code>CommonJs</code> &#x6A21;&#x5757;&#x3001; <code>AMD</code> &#x6A21;&#x5757;&#x3001; <code>ES6</code> &#x6A21;&#x5757;&#x3001;<code>CSS</code>&#x3001;&#x56FE;&#x7247;&#x3001; <code>JSON</code>&#x3001;<code>Coffeescript</code>&#x3001; <code>LESS</code> &#x7B49;&#x3002;</p>
+<a id="more"></a>
+<h3 id="&#x5F00;&#x59CB;"><a href="#&#x5F00;&#x59CB;" class="headerlink" title="&#x5F00;&#x59CB;"></a>&#x5F00;&#x59CB;</h3><h4 id="&#x5B89;&#x88C5;"><a href="#&#x5B89;&#x88C5;" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</h4><p>&#x9996;&#x5148;&#x8981;&#x5B89;&#x88C5; Node.js&#xFF0C; Node.js &#x81EA;&#x5E26;&#x4E86;&#x8F6F;&#x4EF6;&#x5305;&#x7BA1;&#x7406;&#x5668; npm&#xFF0C;Webpack &#x9700;&#x8981; Node.js v0.6 &#x4EE5;&#x4E0A;&#x652F;&#x6301;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x6700;&#x65B0;&#x7248; Node.js&#x3002;</p>
+<p>&#x5168;&#x5C40;&#x5B89;&#x88C5;</p>
+<pre><code>npm install webpack -g
+</code></pre><p>&#x4F9D;&#x8D56;&#x5B89;&#x88C5;</p>
+<pre><code>npm install webpack --save-dev
+</code></pre><p>&#x5B89;&#x88C5;&#x6210;&#x529F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;<strong>webpack -h</strong>&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x3002;</p>
+<h4 id="&#x57FA;&#x672C;&#x4F7F;&#x7528;"><a href="#&#x57FA;&#x672C;&#x4F7F;&#x7528;" class="headerlink" title="&#x57FA;&#x672C;&#x4F7F;&#x7528;"></a>&#x57FA;&#x672C;&#x4F7F;&#x7528;</h4><p>1 &#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x547D;&#x540D;&#x4E3A;<strong>learn-webpack</strong>,&#x7EC8;&#x7AEF;&#x8FDB;&#x5165;&#x8BE5;&#x6587;&#x4EF6;&#x5939;&#x540E;&#x8F93;&#x5165;&#x4E0B;&#x9762;&#x547D;&#x4EE4;&#x521D;&#x59CB;&#x5316;&#x9879;&#x76EE;&#x4E0A;&#x3002;    </p>
+<pre><code>npm init  
+</code></pre><p>&#x8F93;&#x5165;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x540E;&#xFF0C;&#x7EC8;&#x7AEF;&#x4F1A;&#x95EE;&#x4F60;&#x4E00;&#x7CFB;&#x5217;&#x8BF8;&#x5982;&#x9879;&#x76EE;&#x540D;&#x79F0;&#xFF0C;&#x9879;&#x76EE;&#x63CF;&#x8FF0;&#xFF0C;&#x4F5C;&#x8005;&#x7B49;&#x4FE1;&#x606F;&#xFF0C;&#x4E0D;&#x8FC7;&#x4E0D;&#x7528;&#x62C5;&#x5FC3;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x4E0D;&#x51C6;&#x5907;&#x5728;npm&#x4E2D;&#x53D1;&#x5E03;&#x4F60;&#x7684;&#x6A21;&#x5757;&#xFF0C;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x7684;&#x7B54;&#x6848;&#x90FD;&#x4E0D;&#x91CD;&#x8981;&#xFF0C;&#x56DE;&#x8F66;&#x9ED8;&#x8BA4;&#x5373;&#x53EF;&#x3002;</p>
+<p>2 &#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x63A5;&#x7740;&#x5B89;&#x88C5;webpack</p>
+<pre><code>// &#x5B89;&#x88C5;Webpack
+npm install webpack -g
+</code></pre><p>3 &#x5728;&#x5F53;&#x524D;&#x9879;&#x76EE;&#x4E2D;&#x65B0;&#x5EFA;&#x4E24;&#x4E2A;&#x7A7A;&#x7684;&#x6587;&#x4EF6;&#x5939;<strong>src</strong>&#x6587;&#x4EF6;&#x5939;&#x548C;<strong>build</strong>&#x6587;&#x4EF6;&#x5939;,<strong>src</strong>&#x6587;&#x4EF6;&#x5939;&#x7528;&#x6765;&#x5B58;&#x653E;&#x539F;&#x59CB;&#x6570;&#x636E;&#x548C;&#x6211;&#x4EEC;&#x5C06;&#x5199;&#x7684;JavaScript&#x6A21;&#x5757;&#xFF0C;<strong>build</strong>&#x6587;&#x4EF6;&#x5939;&#x7528;&#x6765;&#x5B58;&#x653E;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#x7684;&#x9875;&#x9762;&#x3002;&#x5728;&#x8FD9;&#x91CC;&#x8FD8;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E09;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;<code>index.html</code> &#x6587;&#x4EF6;&#x653E;&#x5728;build&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#xFF0C;&#x4E24;&#x4E2A;js&#x6587;&#x4EF6;&#xFF08;<code>main.js</code>&#x548C;<code>module.js</code>&#xFF09;&#x653E;&#x5728;<strong>src</strong>&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;&#x9879;&#x76EE;&#x7ED3;&#x6784;&#x7ED3;&#x6784;&#x5982;&#x4E0B;</p>
+<pre><code>learn-webpack
+    build
+        index.html
+    src
+        main.js
+        module.js
+    node_modules
+    package.json
+</code></pre><p><code>index.html</code>&#x6587;&#x4EF6;&#x53EA;&#x6709;&#x6700;&#x57FA;&#x7840;&#x7684;html&#x4EE3;&#x7801;&#xFF0C;&#x5B83;&#x552F;&#x4E00;&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x52A0;&#x8F7D;&#x6253;&#x5305;&#x540E;&#x7684;js&#x6587;&#x4EF6;&#xFF08;bundle.js&#xFF09;</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;learn webpack&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&apos;app&apos;&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><code>main.js</code></p>
+<pre><code>document.getElementById(&apos;app&apos;).innerHTML = &quot;hello world &quot; + require(&apos;./module.js&apos;);
+</code></pre><p><code>module.js</code></p>
+<pre><code>module.exports = &apos;hello module&apos;;
+</code></pre><ol>
+<li><p>&#x4F7F;&#x7528;webpack&#x751F;&#x6210;<strong>bundle.js</strong></p>
+<pre><code>webpack {entry file/&#x5165;&#x53E3;&#x6587;&#x4EF6;} {destination for bundled file/&#x5B58;&#x653E;bundle.js&#x7684;&#x5730;&#x65B9;}
+</code></pre></li>
+</ol>
+<p>&#x53EA;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#xFF0C;webpack&#x5C06;&#x81EA;&#x52A8;&#x8BC6;&#x522B;&#x9879;&#x76EE;&#x6240;&#x4F9D;&#x8D56;&#x7684;&#x5176;&#x5B83;&#x6587;&#x4EF6;&#x3002;</p>
+<pre><code>webpack src/main.js build/bundle.js
+</code></pre><p>&#x8FD0;&#x884C;&#x5982;&#x4E0B;</p>
+<p><img src="/2017/01/12/&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack/webpack01.png" alt=""></p>
+<p>&#x73B0;&#x5728;&#x6253;&#x5F00;index.html,&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5982;&#x4E0B;&#x7ED3;&#x679C;</p>
+<p><img src="/2017/01/12/&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack/webpack02.png" alt=""></p>
+<p>&#x6709;&#x6CA1;&#x6709;&#x611F;&#x89C9;&#x5F88;&#x795E;&#x5947;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5B66;&#x4F1A;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x6253;&#x5305;&#x6587;&#x4EF6;&#x4E86;&#xFF0C;&#x4F46;&#x6BCF;&#x6B21;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x611F;&#x89C9;&#x4E0D;&#x662F;&#x5F88;&#x65B9;&#x4FBF;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x770B;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x7528;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6765;&#x6253;&#x5305;&#x3002;</p>
+<p>&#x8FD8;&#x662F;&#x7EE7;&#x7EED;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E;&#x5982;&#x4F55;&#x5199;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x5F53;&#x524D;&#x7EC3;&#x4E60;&#x6587;&#x4EF6;&#x5939;&#x7684;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;<strong>webpack.config.js</strong>&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x4E2D;&#x8FDB;&#x884C;&#x6700;&#x6700;&#x7B80;&#x5355;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF0C;&#x5B83;&#x5305;&#x542B;&#x5165;&#x53E3;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x548C;&#x5B58;&#x653E;&#x6253;&#x5305;&#x540E;&#x6587;&#x4EF6;&#x7684;&#x5730;&#x65B9;&#x7684;&#x8DEF;&#x5F84;&#x3002;</p>
+<pre><code>///webpack.config.js
+module.exports = {
+  entry:  __dirname + &quot;/src/main.js&quot;,//&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;,//&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot;//&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  }
+}
+</code></pre><blockquote>
+<p>&#x6CE8;&#xFF1A;&#x201C;__dirname&#x201D;&#x662F;node.js&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x5B83;&#x6307;&#x5411;&#x5F53;&#x524D;&#x6267;&#x884C;&#x811A;&#x672C;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;&#x3002;</p>
+</blockquote>
+<pre><code>webpack
+</code></pre><p>&#x8FD9;&#x6761;&#x547D;&#x4EE4;&#x4F1A;&#x81EA;&#x52A8;&#x53C2;&#x8003;webpack.config.js&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x9009;&#x9879;&#x6253;&#x5305;&#x4F60;&#x7684;&#x9879;&#x76EE;,&#x4F60;&#x4F1A;&#x770B;&#x5230;&#x548C;&#x4F60;&#x521A;&#x624D;&#x4E00;&#x6837;&#x7684;&#x6548;&#x679C;&#x3002;</p>
+<p>&#x53C8;&#x5B66;&#x4F1A;&#x4E86;&#x4E00;&#x79CD;&#x4F7F;&#x7528;Webpack&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E14;&#x4E0D;&#x7528;&#x7BA1;&#x90A3;&#x70E6;&#x4EBA;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;&#x4E86;&#xFF0C;&#x6709;&#x6CA1;&#x6709;&#x611F;&#x89C9;&#x5F88;&#x723D;&#x3002;<br>&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x66F4;&#x5FEB;&#x6377;&#x7684;&#x6267;&#x884C;&#x6253;&#x5305;&#x4EFB;&#x52A1;&#xFF0C;&#x5C31;&#x662F;&#x4F7F;&#x7528;<strong>npm</strong>&#x811A;&#x672C;&#x3002;</p>
+<p>&#x4FEE;&#x6539;package.json</p>
+<pre><code>{
+  &quot;name&quot;: &quot;learn-webpack&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;dependencies&quot;: {
+    &quot;webpack&quot;: &quot;^1.14.0&quot;
+  },
+  &quot;devDependencies&quot;: {},
+  &quot;scripts&quot;: {
+    &quot;build&quot;:&quot;webpack&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
+</code></pre><p>&#x7136;&#x540E;&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;</p>
+<pre><code>npm run build
+</code></pre><p>&#x662F;&#x4E0D;&#x662F;&#x4E5F;&#x548C;&#x521A;&#x624D;&#x4E00;&#x6837;&#x7684;&#x6548;&#x679C;&#x3002;</p>
+<p>5 &#x5176;&#x5B83;&#x914D;&#x7F6E;</p>
+<p>5.1 Source Maps&#xFF08;&#x4F7F;&#x8C03;&#x8BD5;&#x66F4;&#x5BB9;&#x6613;&#xFF09;</p>
+<p>&#x5F00;&#x53D1;&#x603B;&#x662F;&#x79BB;&#x4E0D;&#x5F00;&#x8C03;&#x8BD5;&#xFF0C;&#x5982;&#x679C;&#x53EF;&#x4EE5;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#x7684;&#x8C03;&#x8BD5;&#x5F53;&#x7136;&#x5C31;&#x80FD;&#x63D0;&#x9AD8;&#x5F00;&#x53D1;&#x6548;&#x7387;&#xFF0C;&#x4E0D;&#x8FC7;&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x6709;&#x65F6;&#x5019;&#x4F60;&#x662F;&#x4E0D;&#x5BB9;&#x6613;&#x627E;&#x5230;&#x51FA;&#x9519;&#x4E86;&#x7684;&#x5730;&#x65B9;&#x5BF9;&#x5E94;&#x7684;&#x6E90;&#x4EE3;&#x7801;&#x7684;&#x4F4D;&#x7F6E;&#x7684;&#xFF0C;Source Maps&#x5C31;&#x662F;&#x6765;&#x5E2E;&#x6211;&#x4EEC;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x3002;</p>
+<p>&#x5728;webpack&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x914D;&#x7F6E;source maps&#xFF0C;&#x9700;&#x8981;&#x914D;&#x7F6E;<code>devtool</code>&#xFF0C;&#x5B83;&#x6709;&#x4EE5;&#x4E0B;&#x56DB;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x914D;&#x7F6E;&#x9009;&#x9879;&#xFF0C;&#x5404;&#x5177;&#x4F18;&#x7F3A;&#x70B9;&#xFF0C;&#x63CF;&#x8FF0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">devtool&#x9009;&#x9879;</th>
+<th style="text-align:right">&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">source-map</td>
+<td style="text-align:right">&#x5728;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x4E14;&#x529F;&#x80FD;&#x5B8C;&#x5168;&#x7684;&#x6587;&#x4EF6;&#x3002;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5177;&#x6709;&#x6700;&#x597D;&#x7684;source map&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4F1A;&#x51CF;&#x6162;&#x6253;&#x5305;&#x6587;&#x4EF6;&#x7684;&#x6784;&#x5EFA;&#x901F;&#x5EA6;&#xFF1B;</td>
+</tr>
+<tr>
+<td style="text-align:right">cheap-module-source-map</td>
+<td style="text-align:right">&#x5728;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x4E0D;&#x5E26;&#x5217;&#x6620;&#x5C04;&#x7684;map&#xFF0C;&#x4E0D;&#x5E26;&#x5217;&#x6620;&#x5C04;&#x63D0;&#x9AD8;&#x9879;&#x76EE;&#x6784;&#x5EFA;&#x901F;&#x5EA6;&#xFF0C;&#x4F46;&#x662F;&#x4E5F;&#x4F7F;&#x5F97;&#x6D4F;&#x89C8;&#x5668;&#x5F00;&#x53D1;&#x8005;&#x5DE5;&#x5177;&#x53EA;&#x80FD;&#x5BF9;&#x5E94;&#x5230;&#x5177;&#x4F53;&#x7684;&#x884C;&#xFF0C;&#x4E0D;&#x80FD;&#x5BF9;&#x5E94;&#x5230;&#x5177;&#x4F53;&#x7684;&#x5217;&#xFF08;&#x7B26;&#x53F7;&#xFF09;&#xFF0C;&#x4F1A;&#x5BF9;&#x8C03;&#x8BD5;&#x9020;&#x6210;&#x4E0D;&#x4FBF;&#xFF1B;</td>
+</tr>
+<tr>
+<td style="text-align:right">eval-source-map</td>
+<td style="text-align:right">&#x4F7F;&#x7528;eval&#x6253;&#x5305;&#x6E90;&#x6587;&#x4EF6;&#x6A21;&#x5757;&#xFF0C;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x751F;&#x6210;&#x5E72;&#x51C0;&#x7684;&#x5B8C;&#x6574;&#x7684;source map&#x3002;&#x8FD9;&#x4E2A;&#x9009;&#x9879;&#x53EF;&#x4EE5;&#x5728;&#x4E0D;&#x5F71;&#x54CD;&#x6784;&#x5EFA;&#x901F;&#x5EA6;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#x751F;&#x6210;&#x5B8C;&#x6574;&#x7684;sourcemap&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x7684;JS&#x6587;&#x4EF6;&#x7684;&#x6267;&#x884C;&#x5177;&#x6709;&#x6027;&#x80FD;&#x548C;&#x5B89;&#x5168;&#x7684;&#x9690;&#x60A3;&#x3002;&#x4E0D;&#x8FC7;&#x5728;&#x5F00;&#x53D1;&#x9636;&#x6BB5;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x597D;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x751F;&#x4EA7;&#x9636;&#x6BB5;&#x4E00;&#x5B9A;&#x4E0D;&#x8981;&#x7528;&#x8FD9;&#x4E2A;&#x9009;&#x9879;&#xFF1B;</td>
+</tr>
+<tr>
+<td style="text-align:right">cheap-module-eval-source-map</td>
+<td style="text-align:right">&#x8FD9;&#x662F;&#x5728;&#x6253;&#x5305;&#x6587;&#x4EF6;&#x65F6;&#x6700;&#x5FEB;&#x7684;&#x751F;&#x6210;source map&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x751F;&#x6210;&#x7684;Source Map &#x4F1A;&#x548C;&#x6253;&#x5305;&#x540E;&#x7684;JavaScript&#x6587;&#x4EF6;&#x540C;&#x884C;&#x663E;&#x793A;&#xFF0C;&#x6CA1;&#x6709;&#x5217;&#x6620;&#x5C04;&#xFF0C;&#x548C;eval-source-map&#x9009;&#x9879;&#x5177;&#x6709;&#x76F8;&#x4F3C;&#x7684;&#x7F3A;&#x70B9;&#xFF1B;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6B63;&#x5982;&#x4E0A;&#x8868;&#x6240;&#x8FF0;&#xFF0C;&#x4E0A;&#x8FF0;&#x9009;&#x9879;&#x7531;&#x4E0A;&#x5230;&#x4E0B;&#x6253;&#x5305;&#x901F;&#x5EA6;&#x8D8A;&#x6765;&#x8D8A;&#x5FEB;&#xFF0C;&#x4E0D;&#x8FC7;&#x540C;&#x65F6;&#x4E5F;&#x5177;&#x6709;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#x7684;&#x8D1F;&#x9762;&#x4F5C;&#x7528;&#xFF0C;&#x8F83;&#x5FEB;&#x7684;&#x6784;&#x5EFA;&#x901F;&#x5EA6;&#x7684;&#x540E;&#x679C;&#x5C31;&#x662F;&#x5BF9;&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x7684;&#x7684;&#x6267;&#x884C;&#x6709;&#x4E00;&#x5B9A;&#x5F71;&#x54CD;&#x3002;</p>
+<p>&#x5728;&#x5728;&#x5C0F;&#x5230;&#x4E2D;&#x578B;&#x7684;&#x9879;&#x76EE;&#x4E0A;&#xFF0C;<code>eval-source-map</code>&#x662F;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x9009;&#x9879;&#xFF0C;&#x4E0D;&#x8FC7;&#x8BB0;&#x5F97;&#x53EA;&#x5728;&#x5F00;&#x53D1;&#x9636;&#x6BB5;&#x4F7F;&#x7528;&#x5B83;,&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4F7F;&#x7528;<code>source-map</code>&#xFF0C;&#x7EE7;&#x7EED;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x8FDB;&#x884C;&#x5982;&#x4E0B;&#x914D;&#x7F6E;</p>
+<p>&#x4FEE;&#x6539;<code>webpack.config.js</code></p>
+<pre><code>///webpack.config.js
+module.exports = {
+  devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry:  __dirname + &quot;/src/main.js&quot;,//&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;,//&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot;//&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  }
+}
+</code></pre><p>&#x7136;&#x540E;&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;</p>
+<pre><code>npm run build
+</code></pre><p>&#x5C31;&#x4F1A;&#x5728;<code>build</code>&#x91CC;&#x9762;&#x751F;&#x6210;Source Maps&#x3002;</p>
+<h4 id="webpack&#x6784;&#x5EFA;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;"><a href="#webpack&#x6784;&#x5EFA;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;" class="headerlink" title="webpack&#x6784;&#x5EFA;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;"></a>webpack&#x6784;&#x5EFA;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;</h4><p>&#x60F3;&#x4E0D;&#x60F3;&#x8BA9;&#x4F60;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x76D1;&#x6D4B;&#x4F60;&#x90FD;&#x4EE3;&#x7801;&#x7684;&#x4FEE;&#x6539;&#xFF0C;&#x5E76;&#x81EA;&#x52A8;&#x5237;&#x65B0;&#x4FEE;&#x6539;&#x540E;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x5176;&#x5B9E;Webpack&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x672C;&#x5730;&#x5F00;&#x53D1;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x8FD9;&#x4E2A;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x57FA;&#x4E8E;node.js&#x6784;&#x5EFA;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4F60;&#x60F3;&#x8981;&#x7684;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#xFF0C;&#x4E0D;&#x8FC7;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x5728;webpack&#x4E2D;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x4E4B;&#x524D;&#x9700;&#x8981;&#x5355;&#x72EC;&#x5B89;&#x88C5;&#x5B83;&#x4F5C;&#x4E3A;&#x9879;&#x76EE;&#x4F9D;&#x8D56;&#x6216;&#x8005;&#x5168;&#x5C40;&#x5B89;&#x88C5;</p>
+<p>&#x5168;&#x5C40;&#x5B89;&#x88C5;</p>
+<pre><code>npm install -g webpack-dev-server
+</code></pre><p>&#x4F9D;&#x8D56;&#x5B89;&#x88C5;</p>
+<pre><code>npm install --save-dev webpack-dev-server
+</code></pre><p>&#x914D;&#x7F6E;&#x9009;&#x9879;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">&#x914D;&#x7F6E;&#x540D;&#x79F0;</th>
+<th style="text-align:right">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">contentBase</td>
+<td style="text-align:right">&#x9ED8;&#x8BA4;webpack-dev-server&#x4F1A;&#x4E3A;&#x6839;&#x6587;&#x4EF6;&#x5939;&#x63D0;&#x4F9B;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x4E3A;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6587;&#x4EF6;&#x63D0;&#x4F9B;&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E94;&#x8BE5;&#x5728;&#x8FD9;&#x91CC;&#x8BBE;&#x7F6E;&#x5176;&#x6240;&#x5728;&#x76EE;&#x5F55;&#xFF08;&#x672C;&#x4F8B;&#x8BBE;&#x7F6E;&#x5230;<strong>build</strong>&#x76EE;&#x5F55;&#xFF09;</td>
+</tr>
+<tr>
+<td style="text-align:right">port</td>
+<td style="text-align:right">&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x76D1;&#x542C;&#x7AEF;&#x53E3;&#xFF0C;&#x5982;&#x679C;&#x7701;&#x7565;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;<strong>8080</strong></td>
+</tr>
+<tr>
+<td style="text-align:right">inline</td>
+<td style="text-align:right">&#x8BBE;&#x7F6E;&#x4E3A;true&#xFF0C;&#x5F53;&#x6E90;&#x6587;&#x4EF6;&#x6539;&#x53D8;&#x65F6;&#x4F1A;&#x81EA;&#x52A8;&#x5237;&#x65B0;&#x9875;&#x9762;</td>
+</tr>
+<tr>
+<td style="text-align:right">colors</td>
+<td style="text-align:right">&#x8BBE;&#x7F6E;&#x4E3A;true&#xFF0C;&#x4F7F;&#x7EC8;&#x7AEF;&#x8F93;&#x51FA;&#x7684;&#x6587;&#x4EF6;&#x4E3A;&#x5F69;&#x8272;&#x7684;</td>
+</tr>
+<tr>
+<td style="text-align:right">historyApiFallback</td>
+<td style="text-align:right">&#x5728;&#x5F00;&#x53D1;&#x5355;&#x9875;&#x5E94;&#x7528;&#x65F6;&#x975E;&#x5E38;&#x6709;&#x7528;&#xFF0C;&#x5B83;&#x4F9D;&#x8D56;&#x4E8E;HTML5 history API&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A;true&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8DF3;&#x8F6C;&#x5C06;&#x6307;&#x5411;index.html</td>
+</tr>
+</tbody>
+</table>
+<p>&#x4FEE;&#x6539;webpack.config.js</p>
+<pre><code>module.exports = {
+  devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  devServer: {
+    contentBase: &quot;./build&quot;, //&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x6240;&#x52A0;&#x8F7D;&#x7684;&#x9875;&#x9762;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;
+    colors: true, //&#x7EC8;&#x7AEF;&#x4E2D;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x4E3A;&#x5F69;&#x8272;
+    historyApiFallback: true, //&#x4E0D;&#x8DF3;&#x8F6C;
+    inline: true //&#x5B9E;&#x65F6;&#x5237;&#x65B0;
+  }
+}
+</code></pre><h4 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h4><p>Webpack &#x672C;&#x8EAB;&#x53EA;&#x80FD;&#x5904;&#x7406; JavaScript &#x6A21;&#x5757;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x5904;&#x7406;&#x5176;&#x4ED6;&#x7C7B;&#x578B;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x4F7F;&#x7528; <code>loader</code> &#x8FDB;&#x884C;&#x8F6C;&#x6362;&#x3002;</p>
+<p><code>Loader</code> &#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x662F;&#x6A21;&#x5757;&#x548C;&#x8D44;&#x6E90;&#x7684;&#x8F6C;&#x6362;&#x5668;&#xFF0C;&#x5B83;&#x672C;&#x8EAB;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x63A5;&#x53D7;&#x6E90;&#x6587;&#x4EF6;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x8FD4;&#x56DE;&#x8F6C;&#x6362;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>require</code> &#x6765;&#x52A0;&#x8F7D;&#x4EFB;&#x4F55;&#x7C7B;&#x578B;&#x7684;&#x6A21;&#x5757;&#x6216;&#x6587;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982; CoffeeScript&#x3001; JSX&#x3001; LESS &#x6216;&#x56FE;&#x7247;&#x3002;</p>
+<p>Loaders&#x9700;&#x8981;&#x5355;&#x72EC;&#x5B89;&#x88C5;&#x5E76;&#x4E14;&#x9700;&#x8981;&#x5728;<code>webpack.config.js</code>&#x4E0B;&#x7684;<code>modules</code>&#x5173;&#x952E;&#x5B57;&#x4E0B;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF0C;Loaders&#x7684;&#x914D;&#x7F6E;&#x9009;&#x9879;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#x51E0;&#x65B9;&#x9762;&#xFF1A;</p>
+<ul>
+<li><code>test</code>&#xFF1A;&#x4E00;&#x4E2A;&#x5339;&#x914D;loaders&#x6240;&#x5904;&#x7406;&#x7684;&#x6587;&#x4EF6;&#x7684;&#x62D3;&#x5C55;&#x540D;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#xFF08;&#x5FC5;&#x987B;&#xFF09;</li>
+<li><code>loader</code>&#xFF1A;loader&#x7684;&#x540D;&#x79F0;&#xFF08;&#x5FC5;&#x987B;&#xFF09;</li>
+<li><code>include/exclude</code>:&#x624B;&#x52A8;&#x6DFB;&#x52A0;&#x5FC5;&#x987B;&#x5904;&#x7406;&#x7684;&#x6587;&#x4EF6;&#xFF08;&#x6587;&#x4EF6;&#x5939;&#xFF09;&#x6216;&#x5C4F;&#x853D;&#x4E0D;&#x9700;&#x8981;&#x5904;&#x7406;&#x7684;&#x6587;&#x4EF6;&#xFF08;&#x6587;&#x4EF6;&#x5939;&#xFF09;&#xFF08;&#x53EF;&#x9009;&#xFF09;&#xFF1B;</li>
+<li><code>query</code>&#xFF1A;&#x4E3A;loaders&#x63D0;&#x4F9B;&#x989D;&#x5916;&#x7684;&#x8BBE;&#x7F6E;&#x9009;&#x9879;&#xFF08;&#x53EF;&#x9009;&#xFF09;</li>
+</ul>
+<ol>
+<li>&#x63A5;&#x7740;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x73B0;&#x5728;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x5916;&#x90E8;&#x7684;<code>json</code>&#x6587;&#x4EF6;&#xFF0C;&#x4F5C;&#x4E3A;&#x6587;&#x5B57;&#x7684;&#x914D;&#x7F6E;&#x3002;&#x5982;&#x679C;&#x76F4;&#x63A5;<code>require(&apos;./config.json&apos;)</code>,&#x80AF;&#x5B9A;&#x662F;&#x4F1A;&#x62A5;&#x9519;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4E0D;&#x8BA4;&#x8BC6;<code>json</code>,&#x6240;&#x6709;&#x5C31;&#x9700;&#x8981;&#x4E13;&#x95E8;&#x7684;<code>loader</code>&#x53BB;&#x5904;&#x7406;<code>json</code></li>
+</ol>
+<pre><code>//&#x5B89;&#x88C5;&#x53EF;&#x4EE5;&#x88C5;&#x6362;JSON&#x7684;loader
+npm install --save-dev json-loader
+</code></pre><p>&#x4FEE;&#x6539;webpack.config.js&#x4E2D;&#x7684;<code>module</code></p>
+<pre><code>module.exports = {
+devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  devServer: {
+    contentBase: &quot;./build&quot;, //&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x6240;&#x52A0;&#x8F7D;&#x7684;&#x9875;&#x9762;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;
+    colors: true, //&#x7EC8;&#x7AEF;&#x4E2D;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x4E3A;&#x5F69;&#x8272;
+    historyApiFallback: true, //&#x4E0D;&#x8DF3;&#x8F6C;
+    inline: true //&#x5B9E;&#x65F6;&#x5237;&#x65B0;
+  },
+  module: { //&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x6DFB;&#x52A0;JSON loader
+    loaders: [{
+      test: /\.json$/,
+      loader: &quot;json&quot;
+    }]
+  }
+}
+</code></pre><p>&#x5176;&#x5B83;&#x6587;&#x4EF6;&#x4FEE;&#x6539;</p>
+<p><code>main.js</code></p>
+<pre><code>var config = require(&apos;./config.json&apos;);
+document.getElementById(&apos;app&apos;).innerHTML = config.main + require(&apos;./module.js&apos;);
+</code></pre><p><code>module.js</code></p>
+<pre><code>var config = require(&apos;./config.json&apos;);
+document.getElementById(&apos;app&apos;).innerHTML = config.main + require(&apos;./module.js&apos;);
+</code></pre><p><code>config.json</code></p>
+<pre><code>{
+  &quot;main&quot;: &quot;hello world&quot;,
+  &quot;module&quot;: &quot;hello module&quot;
+}
+</code></pre><p>&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;&#x67E5;&#x770B;&#x6548;&#x679C;</p>
+<pre><code>webpack-dev-server
+</code></pre><p>&#x6548;&#x679C;&#x548C;&#x521A;&#x624D;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x53EA;&#x662F;&#x6587;&#x5B57;&#x88AB;&#x5355;&#x72EC;&#x653E;&#x5728;&#x4E86;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A;<code>webpack-dev-server</code>&#x4E0D;&#x4F1A;&#x751F;&#x6210;&#x5230;<code>build</code>, &#x53EA;&#x662F;&#x88AB;&#x52A0;&#x8F7D;&#x5230;&#x5185;&#x5B58;&#x5F53;&#x4E2D;&#x3002;</p>
+</blockquote>
+<h5 id="Loader&#x7ED3;&#x5408;Babel"><a href="#Loader&#x7ED3;&#x5408;Babel" class="headerlink" title="Loader&#x7ED3;&#x5408;Babel"></a>Loader&#x7ED3;&#x5408;Babel</h5><p>Babel&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x7F16;&#x8BD1;JavaScript&#x7684;&#x5E73;&#x53F0;&#xFF0C;&#x5B83;&#x7684;&#x5F3A;&#x5927;&#x4E4B;&#x5904;&#x8868;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F16;&#x8BD1;&#x5E2E;&#x4F60;&#x8FBE;&#x5230;&#x4EE5;&#x4E0B;&#x76EE;&#x7684;&#xFF1A;</p>
+<ul>
+<li>&#x4E0B;&#x4E00;&#x4EE3;&#x7684;JavaScript&#x6807;&#x51C6;&#xFF08;ES6&#xFF0C;ES7&#xFF09;&#xFF0C;&#x8FD9;&#x4E9B;&#x6807;&#x51C6;&#x76EE;&#x524D;&#x5E76;&#x672A;&#x88AB;&#x5F53;&#x524D;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x5B8C;&#x5168;&#x7684;&#x652F;&#x6301;&#xFF1B;</li>
+<li>&#x4F7F;&#x7528;&#x57FA;&#x4E8E;JavaScript&#x8FDB;&#x884C;&#x4E86;&#x62D3;&#x5C55;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x6BD4;&#x5982;React&#x7684;JSX</li>
+</ul>
+<blockquote>
+<p><a href="http://babeljs.io/" target="_blank" rel="external">&#x66F4;&#x591A;&#x4ECB;&#x7ECD;</a></p>
+</blockquote>
+<p>2.1 &#x5B89;&#x88C5;</p>
+<pre><code>npm install babel-loader  babel-core babel-preset-react babel-preset-es2015 webpack --save-dev
+</code></pre><p>2.2 &#x6DFB;&#x52A0;<code>.babelrc</code></p>
+<pre><code>{
+  &quot;presets&quot;: [&quot;react&quot;, &quot;es2015&quot;]
+}
+</code></pre><p>2.3 &#x5B89;&#x88C5; <code>react</code></p>
+<pre><code>npm install --save react react-dom
+</code></pre><p>&#x4FEE;&#x6539;webpack.config.js&#x4E2D;&#x7684;<code>module</code></p>
+<pre><code>module.exports = {
+  devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  devServer: {
+    contentBase: &quot;./build&quot;, //&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x6240;&#x52A0;&#x8F7D;&#x7684;&#x9875;&#x9762;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;
+    colors: true, //&#x7EC8;&#x7AEF;&#x4E2D;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x4E3A;&#x5F69;&#x8272;
+    historyApiFallback: true, //&#x4E0D;&#x8DF3;&#x8F6C;
+    inline: true //&#x5B9E;&#x65F6;&#x5237;&#x65B0;
+  },
+  module: { //&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x6DFB;&#x52A0;JSON loader
+    loaders: [{
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &apos;babel&apos; //&#x5728;webpack&#x7684;module&#x90E8;&#x5206;&#x7684;loaders&#x91CC;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x5373;&#x53EF;
+      }
+    ]
+  }
+}
+</code></pre><p>&#x5176;&#x5B83;&#x6587;&#x4EF6;&#x4FEE;&#x6539;</p>
+<p><code>main.js</code></p>
+<pre><code>import React from &apos;react&apos;;
+import {render} from &apos;react-dom&apos;;
+import Module from &apos;./module&apos;;
+
+render(&lt;Module /&gt;, document.getElementById(&apos;app&apos;));
+</code></pre><p><code>module.js</code></p>
+<pre><code>import React, {Component} from &apos;react&apos;
+import config from &apos;./config.json&apos;;
+
+class Module extends Component{
+  render() {
+    return (
+      &lt;div&gt;
+        {config.module}
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default Module
+</code></pre><p>&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;&#x67E5;&#x770B;&#x6548;&#x679C;</p>
+<pre><code>webpack-dev-server
+</code></pre><p><img src="/2017/01/12/&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack/react.png" alt=""></p>
+<p>&#x73B0;&#x5728;&#x6574;&#x4F53;&#x9879;&#x76EE;&#x5DF2;&#x7ECF;&#x53D8;&#x6210;&#x4E86;<code>react</code>&#x9879;&#x76EE;&#x4E86;</p>
+<h5 id="&#x5982;&#x4F55;&#x5904;&#x7406;css&#x3001;images"><a href="#&#x5982;&#x4F55;&#x5904;&#x7406;css&#x3001;images" class="headerlink" title="&#x5982;&#x4F55;&#x5904;&#x7406;css&#x3001;images"></a>&#x5982;&#x4F55;&#x5904;&#x7406;<code>css</code>&#x3001;<code>images</code></h5><p>webpack&#x63D0;&#x4F9B;&#x4E24;&#x4E2A;<code>loader</code>&#x5904;&#x7406;&#x6837;&#x5F0F;&#x8868;&#xFF0C;<code>css-loader</code> &#x548C; <code>style-loader</code>&#xFF0C;&#x4E8C;&#x8005;&#x5904;&#x7406;&#x7684;&#x4EFB;&#x52A1;&#x4E0D;&#x540C;&#xFF0C;<code>css-loader</code>&#x4F7F;&#x4F60;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x7C7B;&#x4F3C;@import &#x548C; url(&#x2026;)&#x7684;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0; require()&#x7684;&#x529F;&#x80FD;,<code>style-loader</code>&#x5C06;&#x6240;&#x6709;&#x7684;&#x8BA1;&#x7B97;&#x540E;&#x7684;&#x6837;&#x5F0F;&#x52A0;&#x5165;&#x9875;&#x9762;&#x4E2D;&#xFF0C;&#x4E8C;&#x8005;&#x7EC4;&#x5408;&#x5728;&#x4E00;&#x8D77;&#x4F7F;&#x4F60;&#x80FD;&#x591F;&#x628A;&#x6837;&#x5F0F;&#x8868;&#x5D4C;&#x5165;webpack&#x6253;&#x5305;&#x540E;&#x7684;JS&#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<p>&#x63A5;&#x7740;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;</p>
+<pre><code>//&#x5B89;&#x88C5;
+npm install --save-dev style-loader css-loader
+</code></pre><p>&#x4FEE;&#x6539;<code>webpack.config.js</code></p>
+<pre><code>module.exports = {
+devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  devServer: {
+    contentBase: &quot;./build&quot;, //&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x6240;&#x52A0;&#x8F7D;&#x7684;&#x9875;&#x9762;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;
+    colors: true, //&#x7EC8;&#x7AEF;&#x4E2D;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x4E3A;&#x5F69;&#x8272;
+    historyApiFallback: true, //&#x4E0D;&#x8DF3;&#x8F6C;
+    inline: true //&#x5B9E;&#x65F6;&#x5237;&#x65B0;
+  },
+  module: { //&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x6DFB;&#x52A0;JSON loader
+    loaders: [{
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &apos;babel&apos; //&#x5728;webpack&#x7684;module&#x90E8;&#x5206;&#x7684;loaders&#x91CC;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x5373;&#x53EF;
+      },
+      {
+        test: /\.css$/,
+          loader: &apos;style!css&apos; //&#x6DFB;&#x52A0;&#x5BF9;&#x6837;&#x5F0F;&#x8868;&#x7684;&#x5904;&#x7406; &#x611F;&#x53F9;&#x53F7;&#x7684;&#x4F5C;&#x7528;&#x5728;&#x4E8E;&#x4F7F;&#x540C;&#x4E00;&#x6587;&#x4EF6;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;loader
+        }
+    ]
+  }
+}
+</code></pre><blockquote>
+<p>loader&#x4E2D;&#x611F;&#x53F9;&#x53F7;&#x7684;&#x4F5C;&#x7528;&#x5728;&#x4E8E;&#x4F7F;&#x540C;&#x4E00;&#x6587;&#x4EF6;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;loader</p>
+</blockquote>
+<p>&#x63A5;&#x7740;&#x5728;src&#x4E2D;&#x6DFB;&#x52A0;<code>main.css</code>&#xFF0C;&#x5E76;&#x5199;&#x5165;&#x57FA;&#x672C;&#x6837;&#x5F0F;</p>
+<pre><code>* {
+  margin: 0;
+  padding: 0;
+  font-family: &apos;Helvetica Neue&apos;, Helvetica, Arial, sans-serif;
+}
+
+body {
+  color: red;
+  font-size: 30px;
+}
+</code></pre><p>&#x7136;&#x540E;&#x5728;<code>main.js</code>&#x6DFB;&#x52A0;<code>main.css</code></p>
+<pre><code>import React from &apos;react&apos;;
+import {render} from &apos;react-dom&apos;;
+import Module from &apos;./module&apos;;
+
+import &apos;./main.css&apos;;//&#x4F7F;&#x7528;import&#x5BFC;&#x5165;css&#x6587;&#x4EF6;
+
+render(&lt;Module /&gt;, document.getElementById(&apos;app&apos;));
+</code></pre><p>&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;&#x67E5;&#x770B;&#x6548;&#x679C;</p>
+<pre><code>webpack-dev-server
+</code></pre><p><img src="/2017/01/12/&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack/webpack03.png" alt=""></p>
+<h4 id="&#x63D2;&#x4EF6;&#xFF08;Plugins&#xFF09;"><a href="#&#x63D2;&#x4EF6;&#xFF08;Plugins&#xFF09;" class="headerlink" title="&#x63D2;&#x4EF6;&#xFF08;Plugins&#xFF09;"></a>&#x63D2;&#x4EF6;&#xFF08;Plugins&#xFF09;</h4><p>&#x63D2;&#x4EF6;&#x53EF;&#x4EE5;&#x5B8C;&#x6210;&#x66F4;&#x591A; <code>loader</code> &#x4E0D;&#x80FD;&#x5B8C;&#x6210;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x63D2;&#x4EF6;&#x7684;&#x4F7F;&#x7528;&#x4E00;&#x822C;&#x662F;&#x5728; <code>webpack</code> &#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F; <code>plugins</code> &#x9009;&#x9879;&#x4E2D;&#x6307;&#x5B9A;&#x3002;</p>
+<p><code>Webpack</code> &#x672C;&#x8EAB;&#x5185;&#x7F6E;&#x4E86;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>npm</code> &#x5B89;&#x88C5;&#x7B2C;&#x4E09;&#x65B9;&#x63D2;&#x4EF6;&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x5229;&#x7528;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684; <code>BannerPlugin</code> &#x5185;&#x7F6E;&#x63D2;&#x4EF6;&#x6765;&#x5B9E;&#x8DF5;&#x63D2;&#x4EF6;&#x7684;&#x914D;&#x7F6E;&#x548C;&#x8FD0;&#x884C;&#xFF0C;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x7ED9;&#x8F93;&#x51FA;&#x7684;&#x6587;&#x4EF6;&#x5934;&#x90E8;&#x6DFB;&#x52A0;&#x6CE8;&#x91CA;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x4FEE;&#x6539; webpack.config.js&#xFF0C;&#x6DFB;&#x52A0; plugins&#xFF1A;</p>
+<pre><code>var webpack = require(&apos;webpack&apos;);
+
+module.exports = {
+devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  devServer: {
+    contentBase: &quot;./build&quot;, //&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x6240;&#x52A0;&#x8F7D;&#x7684;&#x9875;&#x9762;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;
+    colors: true, //&#x7EC8;&#x7AEF;&#x4E2D;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x4E3A;&#x5F69;&#x8272;
+    historyApiFallback: true, //&#x4E0D;&#x8DF3;&#x8F6C;
+    inline: true //&#x5B9E;&#x65F6;&#x5237;&#x65B0;
+  },
+  module: { //&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x6DFB;&#x52A0;JSON loader
+    loaders: [{
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &apos;babel&apos; //&#x5728;webpack&#x7684;module&#x90E8;&#x5206;&#x7684;loaders&#x91CC;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x5373;&#x53EF;
+      },
+      {
+        test: /\.css$/,
+        loader: &apos;style!css&apos; //&#x6DFB;&#x52A0;&#x5BF9;&#x6837;&#x5F0F;&#x8868;&#x7684;&#x5904;&#x7406; &#x611F;&#x53F9;&#x53F7;&#x7684;&#x4F5C;&#x7528;&#x5728;&#x4E8E;&#x4F7F;&#x540C;&#x4E00;&#x6587;&#x4EF6;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;loader
+      }
+    ]
+  },
+  plugins: [
+    new webpack.BannerPlugin(&apos;This file is created by zhaoda&apos;)
+  ]
+}
+</code></pre><p>&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;,&#x67E5;&#x770B;&#x751F;&#x6210;&#x7684;<code>bundle.js</code>&#x6548;&#x679C;</p>
+<pre><code>webpack
+</code></pre><p><img src="/2017/01/12/&#x534A;&#x5C0F;&#x65F6;&#x5B66;&#x4F1A;webpack/webpack04.png" alt=""></p>
+<h5 id="HtmlWebpackPlugin"><a href="#HtmlWebpackPlugin" class="headerlink" title="HtmlWebpackPlugin"></a>HtmlWebpackPlugin</h5><p>&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x4F9D;&#x636E;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x6A21;&#x677F;&#xFF0C;&#x5E2E;&#x4F60;&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;Html5&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x81EA;&#x52A8;&#x5F15;&#x7528;&#x4E86;&#x4F60;&#x6253;&#x5305;&#x540E;&#x7684;JS&#x6587;&#x4EF6;&#x3002;&#x6BCF;&#x6B21;&#x7F16;&#x8BD1;&#x90FD;&#x5728;&#x6587;&#x4EF6;&#x540D;&#x4E2D;&#x63D2;&#x5165;&#x4E00;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x54C8;&#x5E0C;&#x503C;&#x3002;</p>
+<p>&#x5B89;&#x88C5;</p>
+<pre><code>npm install --save-dev html-webpack-plugin
+</code></pre><p>&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x81EA;&#x52A8;&#x5B8C;&#x6210;&#x4E86;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x624B;&#x52A8;&#x505A;&#x7684;&#x4E00;&#x4E9B;&#x4E8B;&#x60C5;&#xFF0C;&#x5728;&#x6B63;&#x5F0F;&#x4F7F;&#x7528;&#x4E4B;&#x524D;&#x9700;&#x8981;&#x5BF9;&#x4E00;&#x76F4;&#x4EE5;&#x6765;&#x7684;&#x9879;&#x76EE;&#x7ED3;&#x6784;&#x505A;&#x4E00;&#x4E9B;&#x6539;&#x53D8;&#xFF1A;</p>
+<p>&#x79FB;&#x9664;build&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x5229;&#x7528;&#x6B64;&#x63D2;&#x4EF6;&#xFF0C;HTML5&#x6587;&#x4EF6;&#x4F1A;&#x81EA;&#x52A8;&#x751F;&#x6210;&#xFF0C;&#x6B64;&#x5916;CSS&#x5DF2;&#x7ECF;&#x901A;&#x8FC7;&#x524D;&#x9762;&#x7684;&#x64CD;&#x4F5C;&#x6253;&#x5305;&#x5230;JS&#x4E2D;&#x4E86;&#xFF0C;src&#x6587;&#x4EF6;&#x5939;&#x91CC;&#x3002;</p>
+<p>&#x5728;src&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Html&#x6587;&#x4EF6;&#x6A21;&#x677F;&#xFF0C;&#x8FD9;&#x4E2A;&#x6A21;&#x677F;&#x5305;&#x542B;title&#x7B49;&#x5176;&#x5B83;&#x4F60;&#x9700;&#x8981;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x5728;&#x7F16;&#x8BD1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x672C;&#x63D2;&#x4EF6;&#x4F1A;&#x4F9D;&#x636E;&#x6B64;&#x6A21;&#x677F;&#x751F;&#x6210;&#x6700;&#x7EC8;&#x7684;html&#x9875;&#x9762;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x6DFB;&#x52A0;&#x6240;&#x4F9D;&#x8D56;&#x7684; css, js&#xFF0C;favicon&#x7B49;&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x672C;&#x4F8B;&#x4E2D;&#x6211;&#x4EEC;&#x547D;&#x540D;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x540D;&#x79F0;&#x4E3A;index.tmpl.html&#xFF0C;&#x6A21;&#x677F;&#x6E90;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<p><code>index.tmpl.html</code></p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;learn webpack&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&apos;app&apos;&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>&#x4FEE;&#x6539; <code>webpack.config.js</code>&#xFF0C;&#x6DFB;&#x52A0; <code>plugins</code>&#xFF1A;</p>
+<pre><code>var webpack = require(&apos;webpack&apos;);
+var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+
+
+
+module.exports = {
+devtool: &apos;source-map&apos;,//&#x914D;&#x7F6E;&#x751F;&#x6210;Source Maps&#xFF0C;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x9009;&#x9879;
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  devServer: {
+    contentBase: &quot;./build&quot;, //&#x672C;&#x5730;&#x670D;&#x52A1;&#x5668;&#x6240;&#x52A0;&#x8F7D;&#x7684;&#x9875;&#x9762;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;
+    colors: true, //&#x7EC8;&#x7AEF;&#x4E2D;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x4E3A;&#x5F69;&#x8272;
+    historyApiFallback: true, //&#x4E0D;&#x8DF3;&#x8F6C;
+    inline: true //&#x5B9E;&#x65F6;&#x5237;&#x65B0;
+  },
+  module: { //&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x6DFB;&#x52A0;JSON loader
+    loaders: [{
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &apos;babel&apos; //&#x5728;webpack&#x7684;module&#x90E8;&#x5206;&#x7684;loaders&#x91CC;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x5373;&#x53EF;
+      },
+      {
+        test: /\.css$/,
+        loader: &apos;style!css&apos; //&#x6DFB;&#x52A0;&#x5BF9;&#x6837;&#x5F0F;&#x8868;&#x7684;&#x5904;&#x7406; &#x611F;&#x53F9;&#x53F7;&#x7684;&#x4F5C;&#x7528;&#x5728;&#x4E8E;&#x4F7F;&#x540C;&#x4E00;&#x6587;&#x4EF6;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;loader
+      }
+    ]
+  },
+  plugins: [
+    new webpack.BannerPlugin(&apos;This file is created by BannerPlugin&apos;),
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/src/index.tmpl.html&quot; //new &#x4E00;&#x4E2A;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x5E76;&#x4F20;&#x5165;&#x76F8;&#x5173;&#x7684;&#x53C2;&#x6570;
+    })
+  ]
+}
+</code></pre><p>&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;,&#x67E5;&#x770B;&#x751F;&#x6210;&#x7684;&#x6548;&#x679C;,&#x4F1A;&#x81EA;&#x52A8;&#x5E2E;&#x6211;&#x4EEC;&#x751F;&#x6210;<code>build</code>&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x5E76;&#x4E14;&#x628A;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6;&#x6DFB;&#x52A0;&#x5230;&#x91CC;&#x9762;&#x3002;</p>
+<pre><code>webpack
+</code></pre><h3 id="&#x9AD8;&#x7EA7;&#x8FD0;&#x7528;"><a href="#&#x9AD8;&#x7EA7;&#x8FD0;&#x7528;" class="headerlink" title="&#x9AD8;&#x7EA7;&#x8FD0;&#x7528;"></a>&#x9AD8;&#x7EA7;&#x8FD0;&#x7528;</h3><p>&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;webpack&#x6784;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x3002;&#x4F46;&#x662F;&#x5728;&#x4EA7;&#x54C1;&#x9636;&#x6BB5;&#xFF0C;&#x53EF;&#x80FD;&#x8FD8;&#x9700;&#x8981;&#x5BF9;&#x6253;&#x5305;&#x7684;&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x989D;&#x5916;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x4F18;&#x5316;&#xFF0C;&#x538B;&#x7F29;&#xFF0C;&#x7F13;&#x5B58;&#x4EE5;&#x53CA;&#x5206;&#x79BB;CSS&#x548C;JS&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6DFB;&#x52A0;<code>webpack.production.config.js</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x548C;&#x4E4B;&#x524D;&#x7684;<code>webpack.config.js</code>&#xFF0C;&#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x53EA;&#x662F;&#x53BB;&#x6389;&#x4E86;<code>devServer</code>&#x9009;&#x9879;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5728;&#x90E8;&#x7F72;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x6709;&#x4E13;&#x95E8;&#x7684;web&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4E0D;&#x4F1A;&#x4F7F;&#x7528;<code>webpack-dev-server</code>.</p>
+<p>&#x4FEE;&#x6539;<code>package.json</code></p>
+<pre><code>{
+  &quot;name&quot;: &quot;learn-webpack&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;dependencies&quot;: {
+    ...
+  },
+  &quot;devDependencies&quot;: {
+    ...
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;webpack-dev-server&quot;,
+    &quot;build&quot;:&quot;webpack --config ./webpack.production.config.js&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
+</code></pre><p>&#x5E38;&#x7528;&#x4F18;&#x5316;&#x63D2;&#x4EF6;</p>
+<ul>
+<li><code>UglifyJsPlugin</code>&#xFF1A;&#x538B;&#x7F29;JS&#x4EE3;&#x7801;&#xFF1B;</li>
+<li><code>extractTextPlugin</code>&#xFF1A;&#x5206;&#x79BB;CSS&#x548C;JS&#x6587;&#x4EF6;</li>
+</ul>
+<blockquote>
+<p><code>UglifyJS plugins</code> &#x90FD;&#x662F;&#x5185;&#x7F6E;&#x63D2;&#x4EF6;,&#x4E0D;&#x9700;&#x8981;&#x5B89;&#x88C5;</p>
+</blockquote>
+<p>&#x5B89;&#x88C5;<code>extract-text-webpack-plugin</code></p>
+<pre><code>npm install --save-dev extract-text-webpack-plugin
+</code></pre><p>&#x4FEE;&#x6539; <code>webpack.config.js</code>&#xFF0C;&#x6DFB;&#x52A0; <code>plugins</code>&#xFF1A;</p>
+<pre><code>var webpack = require(&apos;webpack&apos;);
+var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+var ExtractTextPlugin = require(&apos;extract-text-webpack-plugin&apos;);
+
+
+module.exports = {
+  devtool: &apos;source-map&apos;,
+  entry: __dirname + &quot;/src/main.js&quot;, //&#x5DF2;&#x591A;&#x6B21;&#x63D0;&#x53CA;&#x7684;&#x552F;&#x4E00;&#x5165;&#x53E3;&#x6587;&#x4EF6;
+  output: {
+    path: __dirname + &quot;/build&quot;, //&#x6253;&#x5305;&#x540E;&#x7684;&#x6587;&#x4EF6;&#x5B58;&#x653E;&#x7684;&#x5730;&#x65B9;
+    filename: &quot;bundle.js&quot; //&#x6253;&#x5305;&#x540E;&#x8F93;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x4EF6;&#x540D;
+  },
+  module: { //&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x6DFB;&#x52A0;JSON loader
+    loaders: [{
+        test: /\.json$/,
+        loader: &quot;json&quot;
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: &apos;babel&apos; //&#x5728;webpack&#x7684;module&#x90E8;&#x5206;&#x7684;loaders&#x91CC;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x5373;&#x53EF;
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract(&apos;style&apos;, &apos;css&apos;)
+      }
+    ]
+  },
+  plugins: [
+    new webpack.BannerPlugin(&apos;This file is created by BannerPlugin&apos;),
+    new HtmlWebpackPlugin({
+      template: __dirname + &quot;/src/index.tmpl.html&quot; //new &#x4E00;&#x4E2A;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x5E76;&#x4F20;&#x5165;&#x76F8;&#x5173;&#x7684;&#x53C2;&#x6570;
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin(&quot;style.css&quot;)
+  ]
+}
+</code></pre><p>&#x7EC8;&#x7AEF;&#x8FD0;&#x884C;,&#x67E5;&#x770B;&#x751F;&#x6210;&#x7684;&#x6548;&#x679C;,&#x4F1A;&#x81EA;&#x52A8;&#x5E2E;&#x6211;&#x4EEC;&#x751F;&#x6210;<code>build</code>&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x91CC;&#x9762;&#x4F1A;&#x5206;&#x79BB;&#x51FA;<code>main.css</code>&#x548C;<code>boundle.js</code></p>
+<pre><code>npm run build
+</code></pre><p>&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6;&#x90E8;&#x7F72;&#x5230;&#x751F;&#x4EA7;&#x670D;&#x52A1;&#x5668;&#x4E86;&#x3002;</p>
+<h3 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h3><p><code>webpack</code>&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x597D;&#x7528;&#x7684;&#x7684;&#x5DE5;&#x5177;&#xFF0C;&#x4F7F;&#x7528;&#x5B83;&#x53EF;&#x4EE5;&#x8282;&#x7EA6;&#x5F88;&#x591A;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x63D0;&#x9AD8;&#x6211;&#x4EEC;&#x7684;&#x5F00;&#x53D1;&#x6548;&#x7387;&#xFF0C;&#x5927;&#x5BB6;&#x5C31;&#x662F;&#x66F4;&#x591A;&#x7684;&#x65F6;&#x5019;&#x51FA;&#x53BB;<code>&#x64A9;&#x59B9;</code>&#x3002;&#x611F;&#x8C22;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x770B;&#x5B8C;&#x8FD9;&#x7BC7;&#x6BD4;&#x8F83;&#x957F;&#x7684;&#x6587;&#x7AE0;&#x3002;</p>
+<p><a href="http://pan.baidu.com/s/1slIrrJZ" target="_blank" rel="external">&#x89C6;&#x9891;&#x6559;&#x7A0B;</a></p>
+<p>&#x53C2;&#x8003;&#x8D44;&#x6599;</p>
+<blockquote>
+<p><a href="http://webpackdoc.com/" target="_blank" rel="external">Webpack &#x4E2D;&#x6587;&#x6307;&#x5357;</a></p>
+</blockquote>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="http://airplake.github.io/2017/01/12/半小时学会webpack/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://airplake.github.io/2017/01/12/半小时学会webpack/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/03/20/团队代码规范之--standard/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    团队代码规范之--standard
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/01/07/cmder/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Windows命令行工具Cmder</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/01/12/半小时学会webpack/" data-title="半小时学会webpack" data-url="http://airplake.github.io/2017/01/12/半小时学会webpack/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">后端开发</a></p>
+                            <p class="item-title"><a href="/2017/06/04/Mongodb地理空间查询-最佳方案/" class="title">Mongodb地理空间查询-最佳方案</a></p>
+                            <p class="item-date"><time datetime="2017-06-04T04:45:38.000Z" itemprop="datePublished">2017-06-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">前端开发</a></p>
+                            <p class="item-title"><a href="/2017/06/04/不得不学的AJAX/" class="title">不得不学的AJAX</a></p>
+                            <p class="item-date"><time datetime="2017-06-04T02:45:38.000Z" itemprop="datePublished">2017-06-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
+                            <p class="item-title"><a href="/2017/03/20/团队代码规范之--standard/" class="title">团队代码规范之--standard</a></p>
+                            <p class="item-date"><time datetime="2017-03-20T12:45:38.000Z" itemprop="datePublished">2017-03-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
+                            <p class="item-title"><a href="/2017/01/12/半小时学会webpack/" class="title">半小时学会webpack</a></p>
+                            <p class="item-date"><time datetime="2017-01-12T02:45:38.000Z" itemprop="datePublished">2017-01-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
+                            <p class="item-title"><a href="/2017/01/07/cmder/" class="title">Windows命令行工具Cmder</a></p>
+                            <p class="item-date"><time datetime="2017-01-07T02:45:38.000Z" itemprop="datePublished">2017-01-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/frontend/">前端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/">后端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">工具</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/">AJAX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mongodb/">Mongodb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmder/">cmder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/standard/">standard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码规范/">代码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行/">命令行</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地理空间/">地理空间</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打包/">打包</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/Mongodb/" style="font-size: 10px;">Mongodb</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/standard/" style="font-size: 10px;">standard</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/代码规范/" style="font-size: 10px;">代码规范</a> <a href="/tags/命令行/" style="font-size: 10px;">命令行</a> <a href="/tags/地理空间/" style="font-size: 10px;">地理空间</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Airplake<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'airplake'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
