@@ -2,7 +2,7 @@
 title: 团队代码规范之--standard
 date: 2017-03-20 20:45:38
 categories: 工具
-author: john_doe
+author: 阿文
 tags:
   - 代码规范
   - standard
