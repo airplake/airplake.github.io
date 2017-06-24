@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                5
+                6
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                9
+                12
                 <span>标签</span>
             </div>
         </div>
@@ -212,6 +212,91 @@
 
             
             <section id="main">
+    <article id="post-KONG--构建负载均衡服务器" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/06/24/KONG--构建负载均衡服务器/">KONG--构建负载均衡服务器</a>
+        </h1>
+    
+
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/06/24/KONG--构建负载均衡服务器/">
+            <time datetime="2017-06-24T08:45:38.000Z" itemprop="datePublished">2017-06-24</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/backend/">后端开发</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/KONG/">KONG</a>, <a class="tag-link" href="/tags/负载均衡/">负载均衡</a>, <a class="tag-link" href="/tags/高并发/">高并发</a>
+    </div>
+
+                        
+    <div class="article-author">
+        <h1 class="fa fa-shield"> 作者：</h1>
+        <i>老魏、陌上</i>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><h2 id="KONG&#x2013;&#x6784;&#x5EFA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x670D;&#x52A1;&#x5668;"><a href="#KONG&#x2013;&#x6784;&#x5EFA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x670D;&#x52A1;&#x5668;" class="headerlink" title="KONG&#x2013;&#x6784;&#x5EFA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x670D;&#x52A1;&#x5668;"></a>KONG&#x2013;&#x6784;&#x5EFA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x670D;&#x52A1;&#x5668;</h2><h3 id="&#x4EC0;&#x4E48;&#x8D1F;&#x8F7D;&#x5747;&#x8861;"><a href="#&#x4EC0;&#x4E48;&#x8D1F;&#x8F7D;&#x5747;&#x8861;" class="headerlink" title="&#x4EC0;&#x4E48;&#x8D1F;&#x8F7D;&#x5747;&#x8861;"></a>&#x4EC0;&#x4E48;&#x8D1F;&#x8F7D;&#x5747;&#x8861;</h3><p>&#x5148;&#x4E0A;&#x56FE;</p>
+<p><img src="/2017/06/24/KONG--&#x6784;&#x5EFA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x670D;&#x52A1;&#x5668;/01.png" alt=""></p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5148;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#x4EC0;&#x4E48;&#x662F;&#x8D1F;&#x8F7D;&#x5747;&#x8861;: &#x8D1F;&#x8F7D;&#x5E73;&#x8861;&#xFF08;Load balancing&#xFF09;&#x662F;&#x4E00;&#x79CD;&#x8BA1;&#x7B97;&#x673A;&#x7F51;&#x7EDC;&#x6280;&#x672F;&#xFF0C;&#x7528;&#x6765;&#x5728;&#x591A;&#x4E2A;&#x8BA1;&#x7B97;&#x673A;&#xFF08;&#x8BA1;&#x7B97;&#x673A;&#x96C6;&#x7FA4;&#xFF09;&#x8D44;&#x6E90;&#x4E2D;&#x5206;&#x914D;&#x8D1F;&#x8F7D;&#xFF0C;&#x4EE5;&#x8FBE;&#x5230;&#x6700;&#x4F73;&#x5316;&#x8D44;&#x6E90;&#x4F7F;&#x7528;&#x3001;&#x6700;&#x5927;&#x5316;&#x541E;&#x5410;&#x7387;&#x3001;&#x6700;&#x5C0F;&#x5316;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x3001;&#x540C;&#x65F6;&#x907F;&#x514D;&#x8FC7;&#x8F7D;&#x7684;&#x76EE;&#x7684;&#x3002;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x5C31;&#x5728;&#x4E8E;&#x5E73;&#x8861;&#x8D1F;&#x8F7D;&#xFF0C;&#x7ED9;&#x7528;&#x6237;&#x63D0;&#x4F9B;&#x4F18;&#x8D28;&#xFF0C;&#x53EF;&#x9760;&#xFF0C;&#x7A33;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x7528;&#x6237;&#x6570;&#x636E;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5355;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x5DF2;&#x7ECF;&#x627F;&#x53D7;&#x4E0D;&#x4E86;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x9700;&#x8981;&#x670D;&#x52A1;&#x5668;&#x96C6;&#x7FA4;&#x4E86;&#xFF0C;&#x5982;&#x4F55;&#x6765;&#x5206;&#x914D;&#x670D;&#x52A1;&#x5668;&#x8D44;&#x6E90;&#x5462;&#xFF0C;&#x8FD9;&#x65F6;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x6280;&#x672F;&#x5C31;&#x51FA;&#x6765;&#x3002;</p></p>
+            <p class="article-more-link">
+                <a href="/2017/06/24/KONG--构建负载均衡服务器/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bshare-custom"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+  <span
+    class="BSHARE_COUNT bshare-share-count">0</span>
+</div>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+
+
+
+</div>
+
+            
+    
+        <a href="http://airplake.github.io/2017/06/24/KONG--构建负载均衡服务器/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://airplake.github.io/2017/06/24/KONG--构建负载均衡服务器/">评论</a>
+    
+
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Mongodb地理空间查询-最佳方案" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -660,6 +745,15 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/backend/">后端开发</a></p>
+                            <p class="item-title"><a href="/2017/06/24/KONG--构建负载均衡服务器/" class="title">KONG--构建负载均衡服务器</a></p>
+                            <p class="item-date"><time datetime="2017-06-24T08:45:38.000Z" itemprop="datePublished">2017-06-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">后端开发</a></p>
                             <p class="item-title"><a href="/2017/06/04/Mongodb地理空间查询-最佳方案/" class="title">Mongodb地理空间查询-最佳方案</a></p>
                             <p class="item-date"><time datetime="2017-06-04T04:45:38.000Z" itemprop="datePublished">2017-06-04</time></p>
                         </div>
@@ -692,15 +786,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/tools/">工具</a></p>
-                            <p class="item-title"><a href="/2017/01/07/cmder/" class="title">Windows命令行工具Cmder</a></p>
-                            <p class="item-date"><time datetime="2017-01-07T02:45:38.000Z" itemprop="datePublished">2017-01-07</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -710,7 +795,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/frontend/">前端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/">后端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">工具</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/frontend/">前端开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/backend/">后端开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">工具</a><span class="category-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -721,7 +806,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/">AJAX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mongodb/">Mongodb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmder/">cmder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/standard/">standard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码规范/">代码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行/">命令行</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地理空间/">地理空间</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打包/">打包</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AJAX/">AJAX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KONG/">KONG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mongodb/">Mongodb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmder/">cmder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/standard/">standard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码规范/">代码规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/命令行/">命令行</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地理空间/">地理空间</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打包/">打包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/负载均衡/">负载均衡</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高并发/">高并发</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -732,7 +817,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/Mongodb/" style="font-size: 10px;">Mongodb</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/standard/" style="font-size: 10px;">standard</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/代码规范/" style="font-size: 10px;">代码规范</a> <a href="/tags/命令行/" style="font-size: 10px;">命令行</a> <a href="/tags/地理空间/" style="font-size: 10px;">地理空间</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a>
+            <a href="/tags/AJAX/" style="font-size: 10px;">AJAX</a> <a href="/tags/KONG/" style="font-size: 10px;">KONG</a> <a href="/tags/Mongodb/" style="font-size: 10px;">Mongodb</a> <a href="/tags/cmder/" style="font-size: 10px;">cmder</a> <a href="/tags/standard/" style="font-size: 10px;">standard</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/代码规范/" style="font-size: 10px;">代码规范</a> <a href="/tags/命令行/" style="font-size: 10px;">命令行</a> <a href="/tags/地理空间/" style="font-size: 10px;">地理空间</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/负载均衡/" style="font-size: 10px;">负载均衡</a> <a href="/tags/高并发/" style="font-size: 10px;">高并发</a>
         </div>
     </div>
 
