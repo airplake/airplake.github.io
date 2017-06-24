@@ -73,5 +73,5 @@ theme: icarus
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/airplake/airplake.github.io.git
+  repo: git@github.com:airplake/airplake.github.io.git
   branch: master
